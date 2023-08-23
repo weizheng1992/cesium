@@ -226,7 +226,8 @@ module.exports = {
           {
             ignorePseudoElements: ['v-deep', 'v-global', 'v-slotted']
           }
-        ]
+        ],
+        "selector-class-pattern": null, 
       }
     }
   ]

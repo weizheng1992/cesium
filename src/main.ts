@@ -22,7 +22,6 @@ import '@/styles/index.less'
 // 引入动画
 import '@/plugins/animate.css'
 
-import 'vue-cesium/dist/index.css'
 
 // 路由
 import { setupRouter } from './router'
@@ -31,6 +30,7 @@ import { setupRouter } from './router'
 import { setupPermission } from './directives'
 
 import VueCesium from 'vue-cesium'
+import 'vue-cesium/dist/index.css'
 
 import { createApp } from 'vue'
 
