@@ -22,7 +22,6 @@ const point = ref<VcPosition>([])
 const $vc: VcViewerProvider = useVueCesium()
 onMounted(() => {
   $vc.creatingPromise.then((readyObj: VcReadyObject) => {
-    isRight.value = false
     const { ScreenSpaceEventHandler, ScreenSpaceEventType, Math } = readyObj.Cesium
     const pickScreenSpaceEventHandler = new ScreenSpaceEventHandler(readyObj.viewer.canvas)
     pickScreenSpaceEventHandler.setInputAction((movement) => {
@@ -41,6 +40,7 @@ onMounted(() => {
     }, ScreenSpaceEventType.RIGHT_CLICK)
     pickScreenSpaceEventHandler.setInputAction(() => {
       isRight.value = false
+      point.value = []
     }, ScreenSpaceEventType.LEFT_CLICK)
   })
 })

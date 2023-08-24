@@ -123,8 +123,8 @@ const onViewerReady = ({ vm }: any) => {
     let polyline: any = {}
     let positions: any = []
     positions.push({ lng: Math.random() * 40 + 85, lat: Math.random() * 30 + 21 })
-    positions.push({ lng: Math.random() * 40 + 90, lat: Math.random() * 30 + 21 })
-    positions.push({ lng: Math.random() * 40 + 105, lat: Math.random() * 30 + 41 })
+    positions.push({ lng: Math.random() * 40 + 85, lat: Math.random() * 30 + 22 })
+    positions.push({ lng: Math.random() * 40 + 95, lat: Math.random() * 30 + 26 })
     polyline.positions = positions
     // polyline.material = '#' + Math.random().toString(16).substr(2, 6).toUpperCase()
     polylines.value.push(polyline)
