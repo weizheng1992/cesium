@@ -2,7 +2,7 @@
   <vc-config-provider cesium-path="/Cesium/Cesium.js">
     <vc-viewer
       v-if="show"
-      ref="vcViewer"
+      ref="viewerRef"
       @ready="onViewerReady"
       :removeCesiumScript="false"
       :sceneMode="2"
@@ -39,13 +39,13 @@
         <vc-collection-billboard @click="onClicked" :billboards="billboards1" />
       </vc-collection-primitive>
       <vc-collection-polyline @click="onClicked" :polylines="polylines" />
-      <vc-datasource-geojson
+      <!-- <vc-datasource-geojson
         ref="datasourceRef"
         data="https://zouyaoji.top/vue-cesium/SampleData/geojson/china.json"
         :show="show"
         stroke="red"
         @click="onClicked"
-      />
+      /> -->
       <div class="tree">
         <el-tree
           ref="treeRef"
@@ -56,6 +56,7 @@
           @check="handleCheckChange"
         />
       </div>
+      <RightMenu />
     </vc-viewer>
   </vc-config-provider>
 </template>
@@ -68,9 +69,11 @@ import FLY from './recursive-list/fly'
 import { data } from './recursive-list/list'
 import { ElTree } from 'element-plus'
 import type Node from 'element-plus/es/components/tree/src/model/node'
+import RightMenu from './components/RightMenu.vue'
 
 const loading = ref(false)
 const show = ref(true)
+const viewerRef = ref()
 
 const restoreCursorMove = ref('')
 
@@ -218,6 +221,10 @@ const handleCheckChange = () => {
   }
   flyLoading.value = true
 }
+
+// 右键点击
+
+// const isRight = ref(false)
 </script>
 
 <style lang="less" scoped>
@@ -228,10 +235,11 @@ const handleCheckChange = () => {
   z-index: 9999;
   width: 200px;
   padding: 20px;
-  background-color: #092b33;
+  background-color: rgba(0, 68, 82, 0.6);
 }
 
 ::v-deep .el-tree {
-  background-color: #092b33;
+  background-color: initial;
+  color: #fff;
 }
 </style>
