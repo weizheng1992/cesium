@@ -77,12 +77,13 @@ const viewerRef = ref()
 
 const restoreCursorMove = ref('')
 
-const editable = ref(false)
+const editable = ref(true)
 const clampToGround = ref(false)
 const drawing = ref(false)
 
 const measurementFabOptions1 = ref<VcFabProps>({
-  direction: 'left'
+  direction: 'left',
+  modelValue: false
 })
 
 const onViewerReady = ({ vm }: any) => {
@@ -90,7 +91,6 @@ const onViewerReady = ({ vm }: any) => {
   vm.vcMitt.on('destroyed', (e) => {
     console.log('viewer is destroyed', e)
   })
-  console.log(vm)
   loading.value = false
 
   // 视图位置
@@ -129,6 +129,32 @@ const onViewerReady = ({ vm }: any) => {
     // polyline.material = '#' + Math.random().toString(16).substr(2, 6).toUpperCase()
     polylines.value.push(polyline)
   }
+
+  // const scene = vm.viewer.scene
+  // // scene.globe.depthTestAgainstTerrain = true
+
+  // //Add Primitives
+  // scene.primitives.add(
+  //   new Cesium.Primitive({
+  //     geometryInstances: new Cesium.GeometryInstance({
+  //       geometry: Cesium.BoxGeometry.fromDimensions({
+  //         vertexFormat: Cesium.PerInstanceColorAppearance.VERTEX_FORMAT,
+  //         dimensions: new Cesium.Cartesian3(400000.0, 300000.0, 500000.0)
+  //       }),
+  //       modelMatrix: Cesium.Matrix4.multiplyByTranslation(
+  //         Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(-105.0, 45.0)),
+  //         new Cesium.Cartesian3(0.0, 0.0, 250000),
+  //         new Cesium.Matrix4()
+  //       ),
+  //       attributes: {
+  //         color: Cesium.ColorGeometryInstanceAttribute.fromColor(Cesium.Color.RED.withAlpha(0.5))
+  //       }
+  //     }),
+  //     appearance: new Cesium.PerInstanceColorAppearance({
+  //       closed: true
+  //     })
+  //   })
+  // )
 }
 
 const drawEvt = (e, viewer) => {
@@ -210,14 +236,18 @@ const flyLoading = ref(false)
 const treeRef = ref<InstanceType<typeof ElTree>>()
 const handleCheckChange = () => {
   const list = treeRef.value!.getCheckedNodes(true, false)
-  console.log(list)
-  for (let i = 0; i < list.length; i++) {
-    const item = toRaw(list[i])
-    let billboard1: any = {}
-    billboard1.position = { lng: item.point[0], lat: item.point[1] }
-    billboard1.image = 'https://zouyaoji.top/vue-cesium-demo/images/%E9%A3%9E%E6%9C%BA%E5%9C%BA.svg'
-    billboard1.scale = 0.1
-    billboards1.value.push(billboard1)
+  if (list.length > 0) {
+    for (let i = 0; i < list.length; i++) {
+      const item = toRaw(list[i])
+      let billboard1: any = {}
+      billboard1.position = { lng: item.point[0], lat: item.point[1] }
+      billboard1.image =
+        'https://zouyaoji.top/vue-cesium-demo/images/%E9%A3%9E%E6%9C%BA%E5%9C%BA.svg'
+      billboard1.scale = 0.1
+      billboards1.value.push(billboard1)
+    }
+  } else {
+    billboards1.value = []
   }
   flyLoading.value = true
 }
@@ -235,11 +265,16 @@ const handleCheckChange = () => {
   z-index: 9999;
   width: 200px;
   padding: 20px;
-  background-color: rgba(0, 68, 82, 0.6);
+  background-color: rgb(0 68 82 / 60%);
 }
 
-::v-deep .el-tree {
-  background-color: initial;
+:deep(.el-tree) {
   color: #fff;
+  background-color: initial;
+
+  .el-tree-node__content:hover,
+  .el-tree-node:focus > .el-tree-node__content {
+    background-color: rgb(0 68 82 / 80%);
+  }
 }
 </style>
