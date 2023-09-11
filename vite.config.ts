@@ -12,6 +12,7 @@ import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 import UnoCSS from 'unocss/vite'
+import cesium from 'vite-plugin-cesium'
 
 // https://vitejs.dev/config/
 const root = process.cwd()
@@ -52,10 +53,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           }
         }]
       }),
-      EslintPlugin({
-        cache: false,
-        include: ['src/**/*.vue', 'src/**/*.ts', 'src/**/*.tsx'] // 检查的文件
-      }),
+      // EslintPlugin({
+      //   cache: false,
+      //   include: ['src/**/*.vue', 'src/**/*.ts', 'src/**/*.tsx'] // 检查的文件
+      // }),
       VueI18nPlugin({
         runtimeOnly: true,
         compositionOnly: true,
@@ -82,6 +83,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         title: env.VITE_APP_TITLE
       }),
       UnoCSS(),
+      cesium(), 
       // sveltekit(),
     ],
 

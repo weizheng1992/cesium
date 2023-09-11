@@ -122,6 +122,23 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/map',
+    component: Layout,
+    name: 'Map',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/Map/index.vue'),
+        name: 'MapDemo',
+        meta: {
+          title: t('router.guide'),
+          icon: 'cib:telegram-plane'
+        }
+      }
+    ]
+  },
+  {
     path: '/components',
     component: Layout,
     name: 'ComponentsDemo',
