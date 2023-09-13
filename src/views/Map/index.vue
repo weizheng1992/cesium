@@ -1,9 +1,12 @@
 <template>
-  <div id="cesiumContainer"></div>
-  <div class="measure-div">
-    <div id="measure"></div>
+  <div class="relative">
+    <div id="cesiumContainer"></div>
+    <div class="measure-div">
+      <div id="measure"></div>
+    </div>
+    <Panel />
+    <RightMenu v-if="viewer3D" :viewer="viewer3D" />
   </div>
-  <Panel />
 </template>
 
 <script setup>
@@ -14,11 +17,11 @@ import { initCesium } from '@/utils/cesiumUtils/initCesium'
 import Measure from '@/utils/cesiumUtils/cesiumMeasure'
 
 import { CircleWaveMaterialProperty } from '@/utils/cesiumUtils/circleWave'
-import CircleRipple from '@/utils/cesiumUtils/CircleRippleMaterial/common/CircleRipple'
 
 import Panel from './components/Panel.vue'
+import RightMenu from './components/RightMenu.vue'
 
-let viewer3D = null
+const viewer3D = ref(null)
 const measureTool = ref(null)
 
 const showMeasure = () => {
@@ -31,8 +34,7 @@ const showMeasure = () => {
 
 onMounted(() => {
   setTimeout(() => {
-    viewer3D = initCesium('3d')
-
+    viewer3D.value = initCesium('3d')
     // viewer3D.entities.add({
     //   id: 'CircleWave',
     //   position: Cesium.Cartesian3.fromDegrees(104, 30, 10),
@@ -53,20 +55,6 @@ onMounted(() => {
     //   }
     // })
 
-    let circleWave = new CircleRipple(viewer3D, 'circleRipple')
-    circleWave.add([114.04821657959855, 22.508607376269367, 10], 'green', 1000, 3000)
-    // viewer3D.camera.setView({
-    //   destination: Cesium.Cartesian3.fromDegrees(
-    //     ...[114.04821657959855, 22.508607376269367, 100000]
-    //   ),
-    //   orientation: {
-    //     // heading
-    //     heading: Cesium.Math.toRadians(0, 0),
-    //     // pitch
-    //     pitch: Cesium.Math.toRadians(-90),
-    //     roll: 0.0
-    //   }
-    // })
     showMeasure()
   })
 })
