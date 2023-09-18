@@ -10,7 +10,8 @@ const props = defineProps({
   modelValue: propTypes.bool.def(false),
   title: propTypes.string.def('Dialog'),
   fullscreen: propTypes.bool.def(true),
-  maxHeight: propTypes.oneOfType([String, Number]).def('400px')
+  maxHeight: propTypes.oneOfType([String, Number]).def('400px'),
+  width: propTypes.oneOfType([String, Number]).def('50%')
 })
 
 const getBindValue = computed(() => {
@@ -22,6 +23,8 @@ const getBindValue = computed(() => {
       delete obj[key]
     }
   }
+
+  console.log('ssssss', obj)
   return obj
 })
 

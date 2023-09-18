@@ -48,7 +48,10 @@ export default {
     lengthRange: 'The length should be between {min} and {max}',
     notSpace: 'Spaces are not allowed',
     notSpecialCharacters: 'Special characters are not allowed',
-    isEqual: 'The two are not equal'
+    isEqual: 'The two are not equal',
+    lat: 'Latitude',
+    lon: 'Longitude',
+    collect: 'Collect'
   },
   lock: {
     lockScreen: 'Lock screen',
@@ -174,7 +177,13 @@ export default {
     permission: 'Permission test page',
     function: 'Function',
     multipleTabs: 'Multiple tabs',
-    details: 'Details'
+    details: 'Details',
+    basicData: 'Basic data',
+    province: 'Province Region',
+    airport: 'Airport',
+    regional: 'Regional',
+    airRoute: 'Air Route',
+    airRouteDetails: 'Air Route Detail'
   },
   permission: {
     hasPermission: 'Please set the operation permission value'
@@ -547,5 +556,26 @@ export default {
   inputPasswordDemo: {
     title: 'InputPassword',
     inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus'
+  },
+  airport: {
+    name: 'Airport Name',
+    fcode: 'Tetrad code',
+    tcode: 'Three code',
+    area: 'Area',
+    lat: 'Lat',
+    lon: 'Lon'
+  },
+  regional: {
+    name: 'Name',
+    code: 'Code',
+    lcl: 'LCL',
+    ucl: 'UCL',
+    pointData: 'Point Data',
+    addPoint: 'Add Point',
+    borderPoints: 'Border points'
+  },
+  field: {
+    title: 'Chinese',
+    abbr: 'Abbreviation'
   }
 }

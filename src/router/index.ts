@@ -580,6 +580,56 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/basicData',
+    component: Layout,
+    redirect: '/basicData/airport',
+    name: 'BasicData',
+    meta: {
+      title: t('router.basicData'),
+      icon: 'mdi:database',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'airport',
+        component: () => import('@/views/BasicData/Airport/index.vue'),
+        name: 'Airport',
+        meta: {
+          title: t('router.airport')
+        }
+      },
+      {
+        path: 'regional',
+        component: () => import('@/views/BasicData/Regional/index.vue'),
+        name: 'Regional',
+        meta: {
+          title: t('router.regional')
+        }
+      },
+      {
+        path: 'airRoute',
+        component: () => import('@/views/BasicData/AirRoute/index.vue'),
+        name: 'AirRoute',
+        meta: {
+          title: t('router.airRoute')
+        }
+      },
+      {
+        path: 'airRoute-detail',
+        component: () => import('@/views/Example/Page/ExampleDetail.vue'),
+        name: 'AirRouteDetail',
+        meta: {
+          title: t('router.airRouteDetail'),
+          noTagsView: true,
+          noCache: true,
+          hidden: true,
+          canTo: true,
+          activeMenu: '/basicData/airRoute'
+        }
+      }
+    ]
+  },
+  {
     path: '/authorization',
     component: Layout,
     redirect: '/authorization/user',

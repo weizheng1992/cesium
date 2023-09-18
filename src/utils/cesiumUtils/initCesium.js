@@ -1,5 +1,5 @@
 import Cesium from '@/utils/cesiumUtils/cesium'
-import chengdu from '@/assets/geojson/chengdu.json'
+import chengdu from '@/assets/geojson/beijing.json'
 import { img_tdt_dx, img_tdt_sl, img_tdt_yx } from '@/utils/cesiumUtils/map'
 
 // eslint-disable-next-line no-unused-vars
@@ -45,16 +45,6 @@ export const initCesium = (viewerName = '3d') => {
     sceneMode: Cesium.SceneMode.SCENE2D,
     imageryProviderViewModels: [img_tdt_yx, img_tdt_dx, img_tdt_sl], //可供BaseLayerPicker选择的图像图层ProviderViewModel数组
     selectedImageryProviderViewModel: img_tdt_yx //当前地形图层的显示模型，仅baseLayerPicker设为true有意义
-
-    // imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-    //   url: `http://t0.tianditu.gov.cn/vec_w/wmts?tk=${import.meta.env.VITE_TIAN_TOKEN}`,
-    //   subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
-    //   layer: 'vec_c',
-    //   style: 'default',
-    //   tileMatrixSetID: 'w',
-    //   format: 'tiles',
-    //   maximumLevel: 18 // 必须加上最大级数
-    // })
   }
   const extendConf = {}
   const viewer = new Cesium.Viewer(containerName, { ...baseConf, ...extendConf })
@@ -74,20 +64,6 @@ export const initCesium = (viewerName = '3d') => {
   //去除版权信息
   viewer.cesiumWidget.creditContainer.style.display = 'none'
 
-  // // vec(矢量)、img(影像)、cia(影像中文注记)、cva(矢量中文注记)
-  // var layer = new Cesium.WebMapTileServiceImageryProvider({
-  //   url: `http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=${
-  //     import.meta.env.VITE_TIAN_TOKEN
-  //   }`,
-  //   subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
-  //   layer: 'vec_w',
-  //   style: 'default',
-  //   tileMatrixSetID: 'GoogleMapsCompatible',
-  //   format: 'tiles',
-  //   maximumLevel: 18 // 必须加上最大级数
-  // })
-
-  // viewer.imageryLayers.addImageryProvider(layer)
   // 加载影像注记
   var layer1 = new Cesium.WebMapTileServiceImageryProvider({
     url: `http://t0.tianditu.com/cia_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cia&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=${
@@ -105,7 +81,7 @@ export const initCesium = (viewerName = '3d') => {
   // viewer.imageryLayers.get(0).show = true
   // viewer.imageryLayers.get(1).show = true
   viewer.scene.globe.enableLighting = false
-  // viewer.scene.backgroundColor = new Cesium.Color(0.0, 0.0, 0.0, 0.0) //设置背景地球颜
+  viewer.scene.backgroundColor = new Cesium.Color(0.0, 0.0, 0.0, 0.0) //设置背景地球颜
   // viewer.scene.globe.baseColor = new Cesium.Color.fromCssColorString('#172146')
   const fn = () => {
     // 3. 注记标签

@@ -48,7 +48,10 @@ export default {
     lengthRange: '长度在 {min} 到 {max} 个字符',
     notSpace: '不能包含空格',
     notSpecialCharacters: '不能包含特殊字符',
-    isEqual: '两次输入不一致'
+    isEqual: '两次输入不一致',
+    lat: '纬度',
+    lon: '经度',
+    collect: '收藏'
   },
   lock: {
     lockScreen: '锁定屏幕',
@@ -172,7 +175,13 @@ export default {
     permission: '权限测试页',
     function: '功能',
     multipleTabs: '多开标签页',
-    details: '详情页'
+    details: '详情页',
+    basicData: '基础数据',
+    province: '行政区划',
+    airport: '机场',
+    regional: '区域管制',
+    airRoute: '航线',
+    airRouteDetails: '航线详情'
   },
   permission: {
     hasPermission: '请设置操作权限值'
@@ -412,6 +421,7 @@ export default {
     table: '表格',
     tableDes: '基于 ElementPlus 的 Table 组件二次封装',
     index: '序号',
+    oldIndex: '原序号',
     title: '标题',
     author: '作者',
     displayTime: '创建时间',
@@ -539,5 +549,24 @@ export default {
   inputPasswordDemo: {
     title: '密码输入框',
     inputPasswordDes: '基于 ElementPlus 的 Input 组件二次封装'
+  },
+  airport: {
+    name: '机场名称',
+    fcode: '四字码',
+    tcode: '三字码',
+    area: '地区'
+  },
+  regional: {
+    name: '名称',
+    code: '代码',
+    lcl: '管制下限',
+    ucl: '管制上限',
+    pointData: '点数据',
+    addPoint: '添加点',
+    borderPoints: '边境点'
+  },
+  field: {
+    title: '中文',
+    abbr: '缩写'
   }
 }

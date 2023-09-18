@@ -643,7 +643,7 @@ const testList: string[] = [
 
 const List: any[] = []
 
-const roleNames = ['超级管理员', '管理员', '普通用户', '游客']
+const roleNames = ['系统管理员', '民航局', '地区管理局', '机场']
 const menus = [
   [
     {
