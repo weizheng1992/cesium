@@ -181,7 +181,13 @@ export default {
     airport: '机场',
     regional: '区域管制',
     airRoute: '航线',
-    airRouteDetails: '航线详情'
+    airRouteDetails: '航线详情',
+    field: '字段管理',
+    interference: '干扰管理',
+    map: '地图',
+    interferenceAdd: '干扰申报',
+    interferenceEdit: '干扰编辑',
+    interferenceDetail: '干扰详情'
   },
   permission: {
     hasPermission: '请设置操作权限值'
@@ -568,5 +574,18 @@ export default {
   field: {
     title: '中文',
     abbr: '缩写'
+  },
+  interference: {
+    unit: '单位',
+    region: '所属地区',
+    location: '干扰位置 ',
+    frequency: '影响频率',
+    startTime: '开始时间',
+    business: '影响业务',
+    equipment: '影响设备',
+    scope: '影响范围',
+    type: '干扰类型',
+    degree: '运行受影响程度',
+    addProcess: '添加流程'
   }
 }

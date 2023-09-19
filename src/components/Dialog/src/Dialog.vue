@@ -23,8 +23,6 @@ const getBindValue = computed(() => {
       delete obj[key]
     }
   }
-
-  console.log('ssssss', obj)
   return obj
 })
 

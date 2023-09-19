@@ -183,7 +183,10 @@ export default {
     airport: 'Airport',
     regional: 'Regional',
     airRoute: 'Air Route',
-    airRouteDetails: 'Air Route Detail'
+    airRouteDetails: 'Air Route Detail',
+    field: 'Field management',
+    interference: 'Interference management',
+    map: 'Map'
   },
   permission: {
     hasPermission: 'Please set the operation permission value'
@@ -577,5 +580,18 @@ export default {
   field: {
     title: 'Chinese',
     abbr: 'Abbreviation'
+  },
+  interference: {
+    unit: 'Unit',
+    region: 'Region',
+    location: 'Interference Location ',
+    frequency: 'Impact Frequency',
+    startTime: 'Start Time',
+    business: 'Impact Business',
+    equipment: 'Impact Equipment',
+    scope: 'Scope of Influence',
+    type: 'Interference Type',
+    degree: 'Degree of Impact',
+    addProcess: 'Add Process'
   }
 }

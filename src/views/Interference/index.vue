@@ -1,19 +1,32 @@
 <script setup lang="tsx">
 import { ContentWrap } from '@/components/ContentWrap'
 import { Search } from '@/components/Search'
-import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElTag } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getTableListApi, saveTableApi, delTableListApi } from '@/api/table'
+import { getTableListApi, delTableListApi } from '@/api/table'
 import { useTable } from '@/hooks/web/useTable'
 import { TableData } from '@/api/table/types'
-import { ref, unref, reactive } from 'vue'
-import Write from './components/Write.vue'
-import Detail from './components/Detail.vue'
+import { reactive, ref, unref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useEmitt } from '@/hooks/event/useEmitt'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import AddDialog from './AddDialog.vue'
+
+defineOptions({
+  name: 'ExamplePage'
+})
+
+const { push } = useRouter()
 
 const ids = ref<string[]>([])
+
+const searchParams = ref({})
+const visible = ref(false)
+const setSearchParams = (params: any) => {
+  searchParams.value = params
+  getList()
+}
 
 const { tableRegister, tableState, tableMethods } = useTable({
   fetchDataApi: async () => {
@@ -36,11 +49,17 @@ const { tableRegister, tableState, tableMethods } = useTable({
 const { loading, dataList, total, currentPage, pageSize } = tableState
 const { getList, getElTableExpose, delList } = tableMethods
 
-const searchParams = ref({})
-const setSearchParams = (params: any) => {
-  searchParams.value = params
-  getList()
-}
+getList()
+
+useEmitt({
+  name: 'getList',
+  callback: (type: string) => {
+    if (type === 'add') {
+      currentPage.value = 1
+    }
+    getList()
+  }
+})
 
 const { t } = useI18n()
 
@@ -54,27 +73,113 @@ const crudSchemas = reactive<CrudSchema[]>([
     },
     form: {
       hidden: true
+    },
+    detail: {
+      hidden: true
     }
   },
   {
     field: 'title',
-    label: t('field.title'),
+    label: t('interference.unit')
+  },
+  {
+    field: 'author',
+    label: t('interference.region')
+  },
+  {
+    field: 'author',
+    label: t('interference.location')
+  },
+  {
+    field: 'pageviews',
+    label: t('interference.frequency'),
     search: {
-      component: 'Input'
+      hidden: true
     },
     form: {
-      component: 'Input',
-      colProps: {
-        span: 24
+      component: 'InputNumber',
+      value: 0
+    }
+  },
+  {
+    field: 'display_time',
+    label: t('interference.startTime'),
+    search: {
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetime',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
+      }
+    },
+    form: {
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetime',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
       }
     }
   },
   {
     field: 'author',
-    label: t('field.abbr'),
-    search: {
-      hidden: true
+    label: t('interference.business')
+  },
+  {
+    field: 'author',
+    label: t('interference.equipment')
+  },
+  {
+    field: 'author',
+    label: t('interference.scope')
+  },
+  {
+    field: 'importance',
+    label: t('interference.type'),
+
+    form: {
+      component: 'Select',
+      componentProps: {
+        style: {
+          width: '100%'
+        },
+        options: [
+          {
+            label: '重要',
+            value: 3
+          },
+          {
+            label: '良好',
+            value: 2
+          },
+          {
+            label: '一般',
+            value: 1
+          }
+        ]
+      }
+    },
+    detail: {
+      slots: {
+        default: (data: any) => {
+          return (
+            <ElTag
+              type={
+                data.importance === 1 ? 'success' : data.importance === 2 ? 'warning' : 'danger'
+              }
+            >
+              {data.importance === 1
+                ? t('tableDemo.important')
+                : data.importance === 2
+                ? t('tableDemo.good')
+                : t('tableDemo.commonly')}
+            </ElTag>
+          )
+        }
+      }
     }
+  },
+  {
+    field: 'author',
+    label: t('interference.degree')
   },
   {
     field: 'action',
@@ -97,6 +202,9 @@ const crudSchemas = reactive<CrudSchema[]>([
               <ElButton type="primary" onClick={() => action(data.row, 'edit')}>
                 {t('exampleDemo.edit')}
               </ElButton>
+              <ElButton type="success" onClick={() => action(data.row, 'detail')}>
+                {t('exampleDemo.detail')}
+              </ElButton>
               <ElButton type="danger" onClick={() => delData(data.row)}>
                 {t('exampleDemo.del')}
               </ElButton>
@@ -111,17 +219,8 @@ const crudSchemas = reactive<CrudSchema[]>([
 // @ts-ignore
 const { allSchemas } = useCrudSchemas(crudSchemas)
 
-const dialogVisible = ref(false)
-const dialogTitle = ref('')
-
-const currentRow = ref<TableData | null>(null)
-const actionType = ref('')
-
 const AddAction = () => {
-  dialogTitle.value = t('exampleDemo.add')
-  currentRow.value = null
-  dialogVisible.value = true
-  actionType.value = ''
+  visible.value = true
 }
 
 const delLoading = ref(false)
@@ -136,32 +235,7 @@ const delData = async (row: TableData | null) => {
 }
 
 const action = (row: TableData, type: string) => {
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  actionType.value = type
-  currentRow.value = row
-  dialogVisible.value = true
-}
-
-const writeRef = ref<ComponentRef<typeof Write>>()
-
-const saveLoading = ref(false)
-
-const save = async () => {
-  const write = unref(writeRef)
-  const formData = await write?.submit()
-  if (formData) {
-    saveLoading.value = true
-    const res = await saveTableApi(formData)
-      .catch(() => {})
-      .finally(() => {
-        saveLoading.value = false
-      })
-    if (res) {
-      dialogVisible.value = false
-      currentPage.value = 1
-      getList()
-    }
-  }
+  push(`/interference/${type}?id=${row.id}`)
 }
 </script>
 
@@ -187,27 +261,7 @@ const save = async () => {
       }"
       @register="tableRegister"
     />
+    <AddDialog :visible="visible" />
   </ContentWrap>
-
-  <Dialog v-model="dialogVisible" :title="dialogTitle">
-    <Write
-      v-if="actionType !== 'detail'"
-      ref="writeRef"
-      :form-schema="allSchemas.formSchema"
-      :current-row="currentRow"
-    />
-
-    <Detail
-      v-if="actionType === 'detail'"
-      :detail-schema="allSchemas.detailSchema"
-      :current-row="currentRow"
-    />
-
-    <template #footer>
-      <ElButton v-if="actionType !== 'detail'" type="primary" :loading="saveLoading" @click="save">
-        {{ t('exampleDemo.save') }}
-      </ElButton>
-      <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
-    </template>
-  </Dialog>
 </template>
+@/hooks/event/useEmitt
