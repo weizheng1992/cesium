@@ -7,8 +7,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { getTableDetApi } from '@/api/table'
 import { TableData } from '@/api/table/types'
 import { ElButton } from 'element-plus'
-import PointDialog from '@/Regional/components/PointDialog.vue'
-import PointList from '@/Regional/components/PointList.vue'
+import PointList from '../components/PointList.vue'
+import PointDialog from '../components/PointDialog.vue'
 
 const { push, go } = useRouter()
 
@@ -30,7 +30,7 @@ getTableDet()
 </script>
 
 <template>
-  <ContentDetailWrap :title="t('exampleDemo.detail')" @back="push('/example/example-page')">
+  <ContentDetailWrap :title="t('router.regionalDetail')" @back="push('/basicData/regional')">
     <template #header>
       <ElButton @click="go(-1)">
         {{ t('common.back') }}

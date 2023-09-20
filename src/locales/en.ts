@@ -186,7 +186,11 @@ export default {
     airRouteDetails: 'Air Route Detail',
     field: 'Field management',
     interference: 'Interference management',
-    map: 'Map'
+    map: 'Map',
+    interferenceAdd: 'Interference Add',
+    interferenceEdit: 'Interference Edit',
+    interferenceDetail: 'Interference Detail',
+    regionalDetail: 'Regional Detail'
   },
   permission: {
     hasPermission: 'Please set the operation permission value'

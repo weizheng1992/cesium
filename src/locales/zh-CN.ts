@@ -187,7 +187,8 @@ export default {
     map: '地图',
     interferenceAdd: '干扰申报',
     interferenceEdit: '干扰编辑',
-    interferenceDetail: '干扰详情'
+    interferenceDetail: '干扰详情',
+    regionalDetail: '区域管制详情'
   },
   permission: {
     hasPermission: '请设置操作权限值'

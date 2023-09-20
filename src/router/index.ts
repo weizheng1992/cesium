@@ -10,7 +10,7 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
-    redirect: '/map',
+    redirect: '/map/index',
     name: 'Root',
     meta: {
       hidden: true
@@ -125,7 +125,8 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     path: '/map',
     component: Layout,
     name: 'Map',
-    meta: {},
+    redirect: '/map/index',
+    meta: { roles: ['admin'] },
     children: [
       {
         path: 'index',
@@ -133,7 +134,8 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         name: 'MapDemo',
         meta: {
           title: t('router.map'),
-          icon: 'mdi:earth'
+          icon: 'mdi:earth',
+          roles: ['admin']
         }
       }
     ]
@@ -651,6 +653,19 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         }
       },
       {
+        path: 'regional-detail',
+        component: () => import('@/views/BasicData/Regional/detail/index.vue'),
+        name: 'RegionalDetail',
+        meta: {
+          title: t('router.regionalDetail'),
+          noTagsView: true,
+          noCache: true,
+          hidden: true,
+          canTo: true,
+          activeMenu: '/basicData/regional'
+        }
+      },
+      {
         path: 'airRoute',
         component: () => import('@/views/BasicData/AirRoute/index.vue'),
         name: 'AirRoute',
@@ -660,7 +675,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       },
       {
         path: 'airRoute-detail',
-        component: () => import('@/views/Example/Page/ExampleDetail.vue'),
+        component: () => import('@/views/BasicData/AirRoute/detail/index.vue'),
         name: 'AirRouteDetail',
         meta: {
           title: t('router.airRouteDetail'),

@@ -218,13 +218,14 @@ const signIn = async () => {
           setStorage(appStore.getUserInfo, res.data)
           // 是否使用动态路由
           if (appStore.getDynamicRouter) {
-            getRole()
+            getRole(res.data)
           } else {
             await permissionStore.generateRoutes('static').catch(() => {})
             permissionStore.getAddRouters.forEach((route) => {
               addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
             })
             permissionStore.setIsAddRouters(true)
+            console.log('role', permissionStore.addRouters[0])
             push({ path: redirect.value || permissionStore.addRouters[0].path })
           }
         }
@@ -236,26 +237,27 @@ const signIn = async () => {
 }
 
 // 获取角色信息
-const getRole = async () => {
-  const formData = await getFormData<UserType>()
-  const params = {
-    roleName: formData.username
-  }
-  const res =
+const getRole = async (data) => {
+  // const formData = await getFormData<UserType>()
+  // const params = {
+  //   roleName: formData.username
+  // }
+  // const res =
+  //   appStore.getDynamicRouter && appStore.getServerDynamicRouter
+  //     ? await getAdminRoleApi(params)
+  //     : await getTestRoleApi(params)
+  if (data.role) {
+    // const routers = res.data || []
+    setStorage('roleRouters', [data.role])
     appStore.getDynamicRouter && appStore.getServerDynamicRouter
-      ? await getAdminRoleApi(params)
-      : await getTestRoleApi(params)
-  if (res) {
-    const routers = res.data || []
-    setStorage('roleRouters', routers)
-    appStore.getDynamicRouter && appStore.getServerDynamicRouter
-      ? await permissionStore.generateRoutes('server', routers).catch(() => {})
-      : await permissionStore.generateRoutes('frontEnd', routers).catch(() => {})
+      ? await permissionStore.generateRoutes('server', [data.role]).catch(() => {})
+      : await permissionStore.generateRoutes('frontEnd', [data.role]).catch(() => {})
 
     permissionStore.getAddRouters.forEach((route) => {
       addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
     })
     permissionStore.setIsAddRouters(true)
+    console.log(permissionStore.addRouters)
     push({ path: redirect.value || permissionStore.addRouters[0].path })
   }
 }

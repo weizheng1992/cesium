@@ -180,12 +180,15 @@ const delData = async (row: TableData | null) => {
 }
 
 const action = (row: TableData, type: string) => {
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  actionType.value = type
-  currentRow.value = row
-  dialogVisible.value = true
-
-  push('/example/example-add')
+  if (type === 'edit') {
+    dialogTitle.value = t('exampleDemo.edit')
+    actionType.value = type
+    currentRow.value = row
+    dialogVisible.value = true
+  } else {
+    dialogTitle.value = t('exampleDemo.detail')
+    push('/basicData/airRoute-detail')
+  }
 }
 
 const writeRef = ref<ComponentRef<typeof Write>>()

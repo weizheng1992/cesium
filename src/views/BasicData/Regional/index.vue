@@ -10,10 +10,12 @@ import { useTable } from '@/hooks/web/useTable'
 import { TableData } from '@/api/table/types'
 import { ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
-import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { useRouter } from 'vue-router'
 
 const ids = ref<string[]>([])
+
+const { push } = useRouter()
 
 const { tableRegister, tableState, tableMethods } = useTable({
   fetchDataApi: async () => {
@@ -215,10 +217,14 @@ const delData = async (row: TableData | null) => {
 }
 
 const action = (row: TableData, type: string) => {
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  actionType.value = type
-  currentRow.value = row
-  dialogVisible.value = true
+  if (type === 'edit') {
+    dialogTitle.value = t('exampleDemo.edit')
+    actionType.value = type
+    currentRow.value = row
+    dialogVisible.value = true
+  } else {
+    push(`/basicData/regional-detail?id=${row.id}`)
+  }
 }
 
 const writeRef = ref<ComponentRef<typeof Write>>()
@@ -273,12 +279,6 @@ const save = async () => {
       v-if="actionType !== 'detail'"
       ref="writeRef"
       :form-schema="allSchemas.formSchema"
-      :current-row="currentRow"
-    />
-
-    <Detail
-      v-if="actionType === 'detail'"
-      :detail-schema="allSchemas.detailSchema"
       :current-row="currentRow"
     />
 
