@@ -24,15 +24,13 @@ const addTileMapProvider = (viewer) => {
   })
 }
 
-export const initCesium = (viewerName = '3d') => {
+export const initCesium = (viewerName = 'cesiumContainer', option) => {
   // DEFAULT_VIEW in China
   Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50)
   Cesium.Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_TOKEN
 
   // const url = '/geoserver' // Geoserver URL
   // const terrainUrl = '/terrain' // Terrain URL
-  const is3D = viewerName === '3d'
-  const containerName = is3D ? 'cesiumContainer' : 'cesiumContainer2D'
   const baseConf = {
     // imageryProvider: false,
     geocoder: false,
@@ -46,8 +44,7 @@ export const initCesium = (viewerName = '3d') => {
     imageryProviderViewModels: [img_tdt_yx, img_tdt_dx, img_tdt_sl], //可供BaseLayerPicker选择的图像图层ProviderViewModel数组
     selectedImageryProviderViewModel: img_tdt_yx //当前地形图层的显示模型，仅baseLayerPicker设为true有意义
   }
-  const extendConf = {}
-  const viewer = new Cesium.Viewer(containerName, { ...baseConf, ...extendConf })
+  const viewer = new Cesium.Viewer(viewerName, { ...baseConf, ...option })
   viewer.baseLayerPicker.viewModel.terrainProviderViewModels.pop()
   viewer.baseLayerPicker.viewModel.terrainProviderViewModels.pop()
   // load terrain from Cesium IonResource site, also load your own terrain optionally

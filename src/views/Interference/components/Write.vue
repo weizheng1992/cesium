@@ -1,11 +1,11 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { Form, FormSchema } from '@/components/Form'
 import { useForm } from '@/hooks/web/useForm'
 import { PropType, reactive, watch } from 'vue'
 import { TableData } from '@/api/table/types'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useValidator } from '@/hooks/web/useValidator'
-import { IDomEditor } from '@wangeditor/editor'
+import Location from './interferenceLocation/index.vue'
 
 const { required } = useValidator()
 
@@ -44,9 +44,12 @@ const schema = reactive<FormSchema[]>([
   {
     field: 'author',
     label: t('interference.location'),
-    component: 'Input',
     formItemProps: {
-      rules: [required()]
+      slots: {
+        default: (formModel: any) => {
+          return <Location v-model={formModel['author']} />
+        }
+      }
     }
   },
   {

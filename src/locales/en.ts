@@ -596,6 +596,12 @@ export default {
     scope: 'Scope of Influence',
     type: 'Interference Type',
     degree: 'Degree of Impact',
-    addProcess: 'Add Process'
+    addProcess: 'Add Process',
+
+    process: 'Process'
+  },
+  interferenceLocation: {
+    enterCoordinates: 'Enter Coordinates',
+    mapPointing: 'Map Pointing'
   }
 }

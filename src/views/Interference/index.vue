@@ -11,7 +11,6 @@ import { reactive, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useEmitt } from '@/hooks/event/useEmitt'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
-import AddDialog from './AddDialog.vue'
 
 defineOptions({
   name: 'ExamplePage'
@@ -22,7 +21,6 @@ const { push } = useRouter()
 const ids = ref<string[]>([])
 
 const searchParams = ref({})
-const visible = ref(false)
 const setSearchParams = (params: any) => {
   searchParams.value = params
   getList()
@@ -220,7 +218,7 @@ const crudSchemas = reactive<CrudSchema[]>([
 const { allSchemas } = useCrudSchemas(crudSchemas)
 
 const AddAction = () => {
-  visible.value = true
+  push('/interference/add')
 }
 
 const delLoading = ref(false)
@@ -261,7 +259,5 @@ const action = (row: TableData, type: string) => {
       }"
       @register="tableRegister"
     />
-    <AddDialog :visible="visible" />
   </ContentWrap>
 </template>
-@/hooks/event/useEmitt

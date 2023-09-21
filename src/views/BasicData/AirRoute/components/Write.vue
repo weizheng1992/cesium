@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { Form, FormSchema } from '@/components/Form'
 import { useForm } from '@/hooks/web/useForm'
-import { PropType, reactive, watch, ref } from 'vue'
+import { PropType, reactive, watch } from 'vue'
 import { TableData } from '@/api/table/types'
 import { useValidator } from '@/hooks/web/useValidator'
-import { ContentWrap } from '@/components/ContentWrap'
-import { useI18n } from '@/hooks/web/useI18n'
 
 const { required } = useValidator()
-const { t } = useI18n()
 
 const props = defineProps({
   currentRow: {
@@ -29,8 +26,6 @@ const rules = reactive({
   display_time: [required()],
   content: [required()]
 })
-
-const pointVisible = ref(false)
 
 const { formRegister, formMethods } = useForm()
 const { setValues, getFormData, getElFormExpose } = formMethods
@@ -64,7 +59,5 @@ defineExpose({
 </script>
 
 <template>
-  <ContentWrap :title="t('router.basicData')">
-    <Form :rules="rules" @register="formRegister" :schema="formSchema" />
-  </ContentWrap>
+  <Form :rules="rules" @register="formRegister" :schema="formSchema" />
 </template>

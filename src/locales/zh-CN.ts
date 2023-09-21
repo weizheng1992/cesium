@@ -587,6 +587,11 @@ export default {
     scope: '影响范围',
     type: '干扰类型',
     degree: '运行受影响程度',
-    addProcess: '添加流程'
+    addProcess: '添加流程',
+    process: '流程'
+  },
+  interferenceLocation: {
+    enterCoordinates: '输入坐标',
+    mapPointing: '地图取点'
   }
 }

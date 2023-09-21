@@ -155,7 +155,19 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
           icon: 'mdi:access-point-remove'
         }
       },
-
+      {
+        path: 'add',
+        component: () => import('@/views/Interference/Add.vue'),
+        name: 'InterferenceAdd',
+        meta: {
+          title: t('router.interferenceAdd'),
+          noTagsView: true,
+          noCache: true,
+          hidden: true,
+          canTo: true,
+          activeMenu: '/interference/index'
+        }
+      },
       {
         path: 'edit',
         component: () => import('@/views/Interference/Edit.vue'),

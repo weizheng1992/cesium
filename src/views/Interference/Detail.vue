@@ -6,7 +6,7 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { useRouter, useRoute } from 'vue-router'
 import { getTableDetApi } from '@/api/table'
 import { TableData } from '@/api/table/types'
-import { ElButton } from 'element-plus'
+import { ElButton, ElDivider } from 'element-plus'
 import Process from './components/Process.vue'
 
 const { push, go } = useRouter()
@@ -34,10 +34,12 @@ getTableDet()
         {{ t('common.back') }}
       </ElButton>
     </template>
-    <ElButton class="mb-2" type="primary" :loading="loading" @click="save">
+    <ElButton class="mb-2" type="primary">
       {{ t('interference.addProcess') }}
     </ElButton>
+    <ElDivider content-position="left">{{ t('router.interferenceDetail') }}</ElDivider>
     <Detail :current-row="currentRow" />
+    <ElDivider content-position="left">{{ t('interference.process') }}</ElDivider>
     <Process />
   </ContentDetailWrap>
 </template>
