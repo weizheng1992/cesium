@@ -528,7 +528,7 @@ Measure.prototype._measureAreaSpace = function() {
         color: Cesium.Color.RED,
         outlineColor: Cesium.Color.WHITE,
         outlineWidth: 2,
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+        // heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
       }
     })
     me.measureIds.push(floatingPoint.id)
@@ -564,7 +564,7 @@ Measure.prototype._measureAreaSpace = function() {
         outlineWidth: 1,
         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
         pixelOffset: new Cesium.Cartesian2(20, -40),
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+        // heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
       }
     })
     me.measureIds.push(floatingPoint.id)

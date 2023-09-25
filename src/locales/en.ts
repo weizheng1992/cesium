@@ -102,11 +102,7 @@ export default {
     reExperienced: 'Please exit the login experience again',
     fixedMenu: 'Fixed menu'
   },
-  size: {
-    default: 'Default',
-    large: 'Large',
-    small: 'Small'
-  },
+
   login: {
     welcome: 'Welcome to the system',
     message: 'Backstage management system',
@@ -126,43 +122,6 @@ export default {
   },
   router: {
     login: 'Login',
-    level: 'Multi level menu',
-    menu: 'Menu',
-    menu1: 'Menu1',
-    menu11: 'Menu1-1',
-    menu111: 'Menu1-1-1',
-    menu12: 'Menu1-2',
-    menu2: 'Menu2',
-    dashboard: 'Dashboard',
-    analysis: 'Analysis',
-    workplace: 'Workplace',
-    guide: 'Guide',
-    component: 'Component',
-    icon: 'Icon',
-    echart: 'Echart',
-    countTo: 'Count to',
-    watermark: 'Watermark',
-    qrcode: 'Qrcode',
-    highlight: 'Highlight',
-    infotip: 'Infotip',
-    form: 'Form',
-    defaultForm: 'All examples',
-    search: 'Search',
-    table: 'Table',
-    defaultTable: 'Basic example',
-    editor: 'Editor',
-    richText: 'Rich text',
-    jsonEditor: 'JSON Editor',
-    dialog: 'Dialog',
-    imageViewer: 'Image viewer',
-    descriptions: 'Descriptions',
-    example: 'Example',
-    exampleDialog: 'Example dialog',
-    examplePage: 'Example page',
-    exampleAdd: 'Example page - add',
-    exampleEdit: 'Example page - edit',
-    exampleDetail: 'Example page - detail',
-    errorPage: 'Error page',
     authorization: 'Authorization',
     user: 'User management',
     role: 'Role management',
@@ -603,5 +562,30 @@ export default {
   interferenceLocation: {
     enterCoordinates: 'Enter Coordinates',
     mapPointing: 'Map Pointing'
+  },
+  api: {
+    operationSuccess: 'Operation Success',
+    operationFailed: 'Operation failed',
+    errorTip: 'Error Tip',
+    successTip: 'Success Tip',
+    errorMessage: 'The operation failed, the system is abnormal!',
+    timeoutMessage: 'Login timed out, please log in again!',
+    apiTimeoutMessage: 'The interface request timed out, please refresh the page and try again!',
+    apiRequestFailed: 'The interface request failed, please try again later!',
+    networkException: 'network anomaly',
+    networkExceptionMsg:
+      'Please check if your network connection is normal! The network is abnormal',
+
+    errMsg401: 'The user does not have permission (token, user name, password error)!',
+    errMsg403: 'The user is authorized, but access is forbidden!',
+    errMsg404: 'Network request error, the resource was not found!',
+    errMsg405: 'Network request error, request method not allowed!',
+    errMsg408: 'Network request timed out!',
+    errMsg500: 'Server error, please contact the administrator!',
+    errMsg501: 'The network is not implemented!',
+    errMsg502: 'Network Error!',
+    errMsg503: 'The service is unavailable, the server is temporarily overloaded or maintained!',
+    errMsg504: 'Network timeout!',
+    errMsg505: 'The http version does not support the request!'
   }
 }

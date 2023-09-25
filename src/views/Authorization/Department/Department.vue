@@ -29,8 +29,8 @@ const { tableRegister, tableState, tableMethods } = useTable({
       ...unref(searchParams)
     })
     return {
-      list: res.data.list,
-      total: res.data.total
+      list: res.records,
+      total: res.total
     }
   },
   fetchDelApi: async () => {
@@ -99,7 +99,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       },
       optionApi: async () => {
         const res = await getDepartmentApi()
-        return res.data.list
+        return res.list
       }
     },
     detail: {

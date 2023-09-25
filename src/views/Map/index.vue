@@ -27,14 +27,14 @@ const measureTool = ref(null)
 const showMeasure = () => {
   measureTool.value?.destroy()
   measureTool.value = new Measure({
-    viewer: viewer3D,
+    viewer: viewer3D.value,
     target: 'measure'
   })
 }
 
 onMounted(() => {
   setTimeout(() => {
-    viewer3D.value = initCesium('3d')
+    viewer3D.value = initCesium('cesiumContainer')
     // viewer3D.entities.add({
     //   id: 'CircleWave',
     //   position: Cesium.Cartesian3.fromDegrees(104, 30, 10),
@@ -56,7 +56,7 @@ onMounted(() => {
     // })
 
     showMeasure()
-  })
+  }, 1000)
 })
 </script>
 <style scoped lang="less">

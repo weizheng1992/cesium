@@ -115,7 +115,7 @@ const treeData = ref([])
 const getMenuList = async () => {
   const res = await getMenuListApi()
   if (res) {
-    treeData.value = res.data.list
+    treeData.value = res.records
     if (!props.currentRow) return
     await nextTick()
     const checked: any[] = []

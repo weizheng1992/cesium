@@ -1,9 +1,8 @@
-import config from '@/config/axios/config'
 import { MockMethod } from 'vite-plugin-mock'
-import Mock from 'mockjs'
 import { toAnyString } from '@/utils'
+import Mock from 'mockjs'
 
-const { code } = config
+const code = 0
 
 const timeout = 1000
 
@@ -1072,10 +1071,8 @@ export default [
     timeout,
     response: () => {
       return {
-        data: {
-          code: code,
-          data: adminList
-        }
+        code: code,
+        data: adminList
       }
     }
   },
@@ -1085,12 +1082,10 @@ export default [
     timeout,
     response: () => {
       return {
+        code: code,
         data: {
-          code: code,
-          data: {
-            list: List,
-            total: 4
-          }
+          records: List,
+          total: 4
         }
       }
     }
@@ -1102,10 +1097,8 @@ export default [
     timeout,
     response: () => {
       return {
-        data: {
-          code: code,
-          data: testList
-        }
+        code: code,
+        data: testList
       }
     }
   },
@@ -1115,12 +1108,10 @@ export default [
     timeout,
     response: () => {
       return {
+        code: code,
         data: {
-          code: code,
-          data: {
-            list: List,
-            total: 4
-          }
+          records: List,
+          total: 4
         }
       }
     }

@@ -1,9 +1,8 @@
-import config from '@/config/axios/config'
 import { MockMethod } from 'vite-plugin-mock'
 import { toAnyString } from '@/utils'
 import Mock from 'mockjs'
 
-const { code } = config
+const code = 0
 
 const departmentList: any = []
 
@@ -85,11 +84,9 @@ export default [
     method: 'get',
     response: () => {
       return {
+        code: code,
         data: {
-          code: code,
-          data: {
-            list: departmentList
-          }
+          list: departmentList
         }
       }
     }
@@ -99,12 +96,10 @@ export default [
     method: 'get',
     response: () => {
       return {
+        code: code,
         data: {
-          code: code,
-          data: {
-            list: departmentList,
-            total: 5
-          }
+          records: departmentList,
+          total: 5
         }
       }
     }
@@ -136,12 +131,10 @@ export default [
         )
       }
       return {
+        code: code,
         data: {
-          code: code,
-          data: {
-            total: 100,
-            list: mockList
-          }
+          total: 100,
+          records: mockList
         }
       }
     }

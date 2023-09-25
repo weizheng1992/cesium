@@ -5,11 +5,11 @@
 </template>
 <script setup lang="ts">
 import { Dialog } from '@/components/Dialog'
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { initCesium } from '@/utils/cesiumUtils/initCesium'
 import { useI18n } from '@/hooks/web/useI18n'
 import Cesium from '@/utils/cesiumUtils/cesium'
-import { Viewer, Entity } from 'cesium'
+import { Entity } from 'cesium'
 
 const viewer3D = ref<any>(null)
 const dialogVisible = ref(false)
@@ -25,6 +25,8 @@ const props = defineProps({
     default: false
   }
 })
+
+const emit = defineEmits(['onLocation'])
 
 watch(
   () => props.visible,
@@ -65,6 +67,7 @@ watch(
 
           cartesian2Point.value = [movement.position.x, movement.position.y]
           cartesian3Point.value = [lng, lat]
+          emit('onLocation', { lng, lat })
         }, ScreenSpaceEventType.RIGHT_CLICK)
         pickScreenSpaceEventHandler.setInputAction(() => {
           initMenu()

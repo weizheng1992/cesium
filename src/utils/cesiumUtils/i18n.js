@@ -2,9 +2,9 @@ import { ref } from 'vue'
 
 const nowLang = localStorage.getItem('lang')
 if (!nowLang) {
-  localStorage.setItem('lang', 'EN')
+  localStorage.setItem('lang', '中文')
 }
-export const langRef = ref(nowLang || 'EN')
+export const langRef = ref(nowLang || '中文')
 
 export const lang = {
   EN: {
@@ -57,7 +57,6 @@ export const lang = {
     'radar 2': 'radar 2',
     satellite: 'satellite',
     'sat survey area': 'sat survey area'
-
   },
   中文: {
     Operations: '操作',

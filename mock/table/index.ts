@@ -1,9 +1,8 @@
-import config from '@/config/axios/config'
 import { MockMethod } from 'vite-plugin-mock'
 import { toAnyString } from '@/utils'
 import Mock from 'mockjs'
 
-const { code } = config
+const code = 0
 
 const timeout = 1000
 
@@ -175,12 +174,10 @@ export default [
         (_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1)
       )
       return {
+        code: code,
         data: {
-          code: code,
-          data: {
-            total: mockList.length,
-            list: pageList
-          }
+          total: mockList.length,
+          records: pageList
         }
       }
     }
@@ -198,10 +195,8 @@ export default [
           })
         ].concat(List)
         return {
-          data: {
-            code: code,
-            data: 'success'
-          }
+          code: code,
+          data: 'success'
         }
       } else {
         List.map((item) => {
@@ -212,10 +207,8 @@ export default [
           }
         })
         return {
-          data: {
-            code: code,
-            data: 'success'
-          }
+          code: code,
+          data: 'success'
         }
       }
     }
@@ -229,10 +222,8 @@ export default [
       for (const example of List) {
         if (example.id === id) {
           return {
-            data: {
-              code: code,
-              data: example
-            }
+            code: code,
+            data: example
           }
         }
       }
@@ -246,10 +237,8 @@ export default [
       const ids = body.ids
       if (!ids) {
         return {
-          data: {
-            code: 500,
-            message: '请选择需要删除的数据'
-          }
+          code: 500,
+          message: '请选择需要删除的数据'
         }
       } else {
         let i = List.length
@@ -259,10 +248,8 @@ export default [
           }
         }
         return {
-          data: {
-            code: code,
-            data: 'success'
-          }
+          code: code,
+          data: 'success'
         }
       }
     }

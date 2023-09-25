@@ -1,5 +1,5 @@
-import request from '@/config/axios'
+import { defHttp } from '@/config/axios'
 
 export const getRoleListApi = () => {
-  return request.get({ url: '/role/table' })
+  return defHttp.get({ url: '/role/table' })
 }

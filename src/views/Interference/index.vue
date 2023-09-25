@@ -34,9 +34,10 @@ const { tableRegister, tableState, tableMethods } = useTable({
       pageSize: unref(pageSize),
       ...unref(searchParams)
     })
+    console.log(res)
     return {
-      list: res.data.list,
-      total: res.data.total
+      list: res.records,
+      total: res.total
     }
   },
   fetchDelApi: async () => {

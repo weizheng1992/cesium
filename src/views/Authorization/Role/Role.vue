@@ -1,10 +1,11 @@
 <script setup lang="tsx">
 import { reactive, ref, unref } from 'vue'
+// import { getRoleList } from '@/api/sys/role'
 import { getRoleListApi } from '@/api/role'
 import { useTable } from '@/hooks/web/useTable'
 import { useI18n } from '@/hooks/web/useI18n'
 import { Table, TableColumn } from '@/components/Table'
-import { ElButton, ElTag } from 'element-plus'
+import { ElButton } from 'element-plus'
 import { Search } from '@/components/Search'
 import { FormSchema } from '@/components/Form'
 import { ContentWrap } from '@/components/ContentWrap'
@@ -15,10 +16,12 @@ const { t } = useI18n()
 
 const { tableRegister, tableState, tableMethods } = useTable({
   fetchDataApi: async () => {
+    // const res = await getRoleList()
     const res = await getRoleListApi()
+    console.log(res)
     return {
-      list: res.data.list || [],
-      total: res.data.total
+      list: res.records || [],
+      total: res.total
     }
   }
 })
@@ -37,30 +40,15 @@ const tableColumns = reactive<TableColumn[]>([
     label: t('role.roleName')
   },
   {
-    field: 'role',
+    field: 'roleCode',
     label: t('role.role')
-  },
-  {
-    field: 'status',
-    label: t('menu.status'),
-    slots: {
-      default: (data: any) => {
-        return (
-          <>
-            <ElTag type={data.row.status === 0 ? 'danger' : 'success'}>
-              {data.row.status === 1 ? t('userDemo.enable') : t('userDemo.disable')}
-            </ElTag>
-          </>
-        )
-      }
-    }
   },
   {
     field: 'createTime',
     label: t('tableDemo.displayTime')
   },
   {
-    field: 'remark',
+    field: 'roleDesc',
     label: t('userDemo.remark')
   },
   {

@@ -1,4 +1,4 @@
-import request from '@/config/axios'
+import { defHttp } from '@/config/axios'
 import type { UserType } from './types'
 
 interface RoleParams {
@@ -6,15 +6,15 @@ interface RoleParams {
 }
 
 export const loginApi = (data: UserType): Promise<IResponse<UserType>> => {
-  return request.post({ url: '/user/login', data })
+  return defHttp.post({ url: '/user/login', data })
 }
 
 export const loginOutApi = (): Promise<IResponse> => {
-  return request.get({ url: '/user/loginOut' })
+  return defHttp.get({ url: '/user/loginOut' })
 }
 
 export const getUserListApi = ({ params }: AxiosConfig) => {
-  return request.get<{
+  return defHttp.get<{
     code: string
     data: {
       list: UserType[]
@@ -26,9 +26,9 @@ export const getUserListApi = ({ params }: AxiosConfig) => {
 export const getAdminRoleApi = (
   params: RoleParams
 ): Promise<IResponse<AppCustomRouteRecordRaw[]>> => {
-  return request.get({ url: '/role/list', params })
+  return defHttp.get({ url: '/role/list', params })
 }
 
 export const getTestRoleApi = (params: RoleParams): Promise<IResponse<string[]>> => {
-  return request.get({ url: '/role/list2', params })
+  return defHttp.get({ url: '/role/list2', params })
 }

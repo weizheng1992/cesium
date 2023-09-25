@@ -105,7 +105,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         {
           find: /\@\//,
           replacement: `${pathResolve('src')}/`
-        }
+        },
+        {
+          find: /\#\//,
+          replacement: pathResolve('types') + '/',
+        },
       ]
     },
     build: {
@@ -125,9 +129,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: {
         // 选项写法
         '/api': {
+          // target: 'http://182.92.134.177:9966',
           target: 'http://127.0.0.1:8000',
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, '')
+          rewrite: path => path.replace(new RegExp(`^/api`), '')
         }
       },
       hmr: {
