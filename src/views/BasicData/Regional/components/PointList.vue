@@ -16,12 +16,12 @@ const { t } = useI18n()
 const columns: TableColumn[] = [
   {
     field: 'index',
-    label: t('tableDemo.index'),
+    label: t('common.index'),
     type: 'index'
   },
   {
     field: 'author',
-    label: t('tableDemo.oldIndex')
+    label: t('common.oldIndex')
   },
   {
     field: 'display_time',
@@ -38,17 +38,17 @@ const columns: TableColumn[] = [
   },
   {
     field: 'action',
-    label: t('tableDemo.action'),
+    label: t('common.action'),
     width: 160,
     slots: {
       default: (data) => {
         return (
           <>
             <ElButton type="primary" onClick={() => actionFn(data.row, 'edit')}>
-              {t('exampleDemo.edit')}
+              {t('common.edit')}
             </ElButton>
             <ElButton type="danger" onClick={() => delData(data.row)}>
-              {t('exampleDemo.del')}
+              {t('common.del')}
             </ElButton>
           </>
         )

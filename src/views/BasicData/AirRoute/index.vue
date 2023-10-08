@@ -67,7 +67,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   //   },
   {
     field: 'index',
-    label: t('tableDemo.index'),
+    label: t('common.index'),
     type: 'index',
     search: {
       hidden: true
@@ -98,7 +98,7 @@ const crudSchemas = reactive<CrudSchema[]>([
 
   {
     field: 'content',
-    label: t('userDemo.remark'),
+    label: t('common.remark'),
     search: {
       hidden: true
     },
@@ -117,7 +117,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'action',
     width: '320px',
-    label: t('tableDemo.action'),
+    label: t('common.action'),
     search: {
       hidden: true
     },
@@ -133,13 +133,13 @@ const crudSchemas = reactive<CrudSchema[]>([
           return (
             <>
               <ElButton type="primary" onClick={() => action(data.row, 'edit')}>
-                {t('exampleDemo.edit')}
+                {t('common.edit')}
               </ElButton>
               <ElButton type="success" onClick={() => action(data.row, 'detail')}>
-                {t('exampleDemo.detail')}
+                {t('common.detail')}
               </ElButton>
               <ElButton type="danger" onClick={() => delData(data.row)}>
-                {t('exampleDemo.del')}
+                {t('common.del')}
               </ElButton>
               <ElButton type="warning" onClick={() => delData(data.row)}>
                 {t('common.collect')}
@@ -162,7 +162,7 @@ const currentRow = ref<TableData | null>(null)
 const actionType = ref('')
 
 const AddAction = () => {
-  dialogTitle.value = t('exampleDemo.add')
+  dialogTitle.value = t('common.add')
   currentRow.value = null
   dialogVisible.value = true
   actionType.value = ''
@@ -181,12 +181,12 @@ const delData = async (row: TableData | null) => {
 
 const action = (row: TableData, type: string) => {
   if (type === 'edit') {
-    dialogTitle.value = t('exampleDemo.edit')
+    dialogTitle.value = t('common.edit')
     actionType.value = type
     currentRow.value = row
     dialogVisible.value = true
   } else {
-    dialogTitle.value = t('exampleDemo.detail')
+    dialogTitle.value = t('common.detail')
     push('/basicData/airRoute-detail')
   }
 }
@@ -219,9 +219,9 @@ const save = async () => {
     <Search :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
 
     <div class="mb-10px">
-      <ElButton type="primary" @click="AddAction">{{ t('exampleDemo.add') }}</ElButton>
+      <ElButton type="primary" @click="AddAction">{{ t('common.add') }}</ElButton>
       <ElButton :loading="delLoading" type="danger" @click="delData(null)">
-        {{ t('exampleDemo.del') }}
+        {{ t('common.del') }}
       </ElButton>
     </div>
 
@@ -247,9 +247,9 @@ const save = async () => {
     />
     <template #footer>
       <ElButton v-if="actionType !== 'detail'" type="primary" :loading="saveLoading" @click="save">
-        {{ t('exampleDemo.save') }}
+        {{ t('common.save') }}
       </ElButton>
-      <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
+      <ElButton @click="dialogVisible = false">{{ t('common.close') }}</ElButton>
     </template>
   </Dialog>
 </template>

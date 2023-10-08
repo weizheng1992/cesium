@@ -59,7 +59,7 @@ const save = async () => {
         {{ t('common.back') }}
       </ElButton>
       <ElButton type="primary" :loading="loading" @click="save">
-        {{ t('exampleDemo.save') }}
+        {{ t('common.save') }}
       </ElButton>
     </template>
   </ContentDetailWrap>

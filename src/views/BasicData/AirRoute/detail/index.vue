@@ -30,7 +30,7 @@ getTableDet()
 </script>
 
 <template>
-  <ContentDetailWrap :title="t('exampleDemo.detail')" @back="push('/example/example-page')">
+  <ContentDetailWrap :title="t('common.detail')" @back="push('/example/example-page')">
     <template #header>
       <ElButton @click="go(-1)">
         {{ t('common.back') }}

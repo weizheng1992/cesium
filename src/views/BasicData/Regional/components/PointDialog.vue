@@ -60,11 +60,11 @@ const formSubmit = async () => {
 </script>
 
 <template>
-  <Dialog v-model="dialogVisible2" :title="t('dialogDemo.dialog')">
+  <Dialog v-model="dialogVisible2" :title="t('common.dialog')">
     <Form :schema="schema" @register="formRegister" />
     <template #footer>
-      <ElButton type="primary" @click="formSubmit">{{ t('dialogDemo.submit') }}</ElButton>
-      <ElButton @click="dialogVisible2 = false">{{ t('dialogDemo.close') }}</ElButton>
+      <ElButton type="primary" @click="formSubmit">{{ t('common.submit') }}</ElButton>
+      <ElButton @click="dialogVisible2 = false">{{ t('common.close') }}</ElButton>
     </template>
   </Dialog>
 </template>

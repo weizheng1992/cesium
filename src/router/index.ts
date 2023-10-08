@@ -701,35 +701,35 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     ]
   },
   {
-    path: '/authorization',
+    path: '/sys',
     component: Layout,
-    redirect: '/authorization/user',
-    name: 'Authorization',
+    redirect: '/sys/user',
+    name: 'sys',
     meta: {
-      title: t('router.authorization'),
+      title: t('router.sys'),
       icon: 'eos-icons:role-binding',
       alwaysShow: true
     },
     children: [
       {
         path: 'field',
-        component: () => import('@/views/Authorization/Field/index.vue'),
+        component: () => import('@/views/sys/Field/index.vue'),
         name: 'Field',
         meta: {
           title: t('router.field')
         }
       },
-      {
-        path: 'department',
-        component: () => import('@/views/Authorization/Department/Department.vue'),
-        name: 'Department',
-        meta: {
-          title: t('router.department')
-        }
-      },
+      // {
+      //   path: 'department',
+      //   component: () => import('@/views/sys/Department/Department.vue'),
+      //   name: 'Department',
+      //   meta: {
+      //     title: t('router.department')
+      //   }
+      // },
       {
         path: 'user',
-        component: () => import('@/views/Authorization/User/User.vue'),
+        component: () => import('@/views/sys/User/User.vue'),
         name: 'User',
         meta: {
           title: t('router.user')
@@ -737,7 +737,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       },
       {
         path: 'menu',
-        component: () => import('@/views/Authorization/Menu/Menu.vue'),
+        component: () => import('@/views/sys/Menu/Menu.vue'),
         name: 'Menu',
         meta: {
           title: t('router.menuManagement')
@@ -745,7 +745,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       },
       {
         path: 'role',
-        component: () => import('@/views/Authorization/Role/Role.vue'),
+        component: () => import('@/views/sys/Role/Role.vue'),
         name: 'Role',
         meta: {
           title: t('router.role')
@@ -753,7 +753,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       },
       {
         path: 'test',
-        component: () => import('@/views/Authorization/Test/Test.vue'),
+        component: () => import('@/views/sys/Test/Test.vue'),
         name: 'Test',
         meta: {
           title: t('router.permission'),

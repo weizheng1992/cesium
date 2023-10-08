@@ -37,10 +37,10 @@ const schema = reactive<DescriptionsSchema[]>([
             type={data.importance === 1 ? 'success' : data.importance === 2 ? 'warning' : 'danger'}
           >
             {data.importance === 1
-              ? t('tableDemo.important')
+              ? t('common.important')
               : data.importance === 2
-              ? t('tableDemo.good')
-              : t('tableDemo.commonly')}
+              ? t('common.good')
+              : t('common.commonly')}
           </ElTag>
         )
       }

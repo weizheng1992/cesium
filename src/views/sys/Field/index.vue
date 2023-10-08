@@ -45,21 +45,6 @@ const setSearchParams = (params: any) => {
 const { t } = useI18n()
 
 const crudSchemas = reactive<CrudSchema[]>([
-  //   {
-  //     field: 'selection',
-  //     search: {
-  //       hidden: true
-  //     },
-  //     form: {
-  //       hidden: true
-  //     },
-  //     detail: {
-  //       hidden: true
-  //     },
-  //     table: {
-  //       type: 'selection'
-  //     }
-  //   },
   {
     field: 'index',
     label: t('common.index'),
@@ -69,14 +54,11 @@ const crudSchemas = reactive<CrudSchema[]>([
     },
     form: {
       hidden: true
-    },
-    detail: {
-      hidden: true
     }
   },
   {
     field: 'title',
-    label: t('province.name'),
+    label: t('field.title'),
     search: {
       component: 'Input'
     },
@@ -85,75 +67,13 @@ const crudSchemas = reactive<CrudSchema[]>([
       colProps: {
         span: 24
       }
-    },
-    detail: {
-      span: 24
     }
   },
   {
     field: 'author',
-    label: t('province.fcode'),
+    label: t('field.abbr'),
     search: {
       hidden: true
-    }
-  },
-  {
-    field: 'display_time',
-    label: t('province.tcode'),
-    search: {
-      hidden: true
-    }
-  },
-  {
-    field: 'importance',
-    label: t('province.area'),
-    search: {
-      hidden: true
-    },
-
-    detail: {
-      slots: {
-        default: (data: any) => {
-          return (
-            <ElTag
-              type={
-                data.importance === 1 ? 'success' : data.importance === 2 ? 'warning' : 'danger'
-              }
-            >
-              {data.importance === 1
-                ? t('common.important')
-                : data.importance === 2
-                ? t('common.good')
-                : t('common.commonly')}
-            </ElTag>
-          )
-        }
-      }
-    }
-  },
-  {
-    field: 'pageviews',
-    label: t('province.lat'),
-    search: {
-      hidden: true
-    }
-  },
-  {
-    field: 'content',
-    label: t('province.lon'),
-    search: {
-      hidden: true
-    },
-    table: {
-      show: false
-    },
-    detail: {
-      span: 24,
-      slots: {
-        default: (data: any) => {
-          return <div innerHTML={data.content}></div>
-        }
-      }
     }
   },
   {
@@ -176,9 +96,6 @@ const crudSchemas = reactive<CrudSchema[]>([
             <>
               <ElButton type="primary" onClick={() => action(data.row, 'edit')}>
                 {t('common.edit')}
-              </ElButton>
-              <ElButton type="success" onClick={() => action(data.row, 'detail')}>
-                {t('common.detail')}
               </ElButton>
               <ElButton type="danger" onClick={() => delData(data.row)}>
                 {t('common.del')}

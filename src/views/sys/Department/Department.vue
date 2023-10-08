@@ -5,9 +5,14 @@ import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElTag } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getTableListApi, saveTableApi, delTableListApi } from '@/api/table'
+import {
+  getDepartmentApi,
+  getDepartmentTableApi,
+  saveDepartmentApi,
+  deleteDepartmentApi
+} from '@/api/department'
+import type { DepartmentItem } from '@/api/department/types'
 import { useTable } from '@/hooks/web/useTable'
-import { TableData } from '@/api/table/types'
 import { ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
@@ -18,7 +23,7 @@ const ids = ref<string[]>([])
 const { tableRegister, tableState, tableMethods } = useTable({
   fetchDataApi: async () => {
     const { currentPage, pageSize } = tableState
-    const res = await getTableListApi({
+    const res = await getDepartmentTableApi({
       pageIndex: unref(currentPage),
       pageSize: unref(pageSize),
       ...unref(searchParams)
@@ -29,7 +34,7 @@ const { tableRegister, tableState, tableMethods } = useTable({
     }
   },
   fetchDelApi: async () => {
-    const res = await delTableListApi(unref(ids))
+    const res = await deleteDepartmentApi(unref(ids))
     return !!res
   }
 })
@@ -45,21 +50,21 @@ const setSearchParams = (params: any) => {
 const { t } = useI18n()
 
 const crudSchemas = reactive<CrudSchema[]>([
-  //   {
-  //     field: 'selection',
-  //     search: {
-  //       hidden: true
-  //     },
-  //     form: {
-  //       hidden: true
-  //     },
-  //     detail: {
-  //       hidden: true
-  //     },
-  //     table: {
-  //       type: 'selection'
-  //     }
-  //   },
+  {
+    field: 'selection',
+    search: {
+      hidden: true
+    },
+    form: {
+      hidden: true
+    },
+    detail: {
+      hidden: true
+    },
+    table: {
+      type: 'selection'
+    }
+  },
   {
     field: 'index',
     label: t('common.index'),
@@ -75,83 +80,119 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'title',
-    label: t('province.name'),
-    search: {
-      component: 'Input'
+    field: 'id',
+    label: t('common.departmentName'),
+    table: {
+      slots: {
+        default: (data: any) => {
+          return <>{data.row.departmentName}</>
+        }
+      }
     },
     form: {
-      component: 'Input',
-      colProps: {
-        span: 24
+      component: 'TreeSelect',
+      componentProps: {
+        nodeKey: 'id',
+        props: {
+          label: 'departmentName'
+        }
+      },
+      optionApi: async () => {
+        const res = await getDepartmentApi()
+        return res.list
       }
     },
     detail: {
-      span: 24
+      slots: {
+        default: (data: any) => {
+          return <>{data.departmentName}</>
+        }
+      }
     }
   },
   {
-    field: 'author',
-    label: t('province.fcode'),
-    search: {
-      hidden: true
-    }
-  },
-  {
-    field: 'display_time',
-    label: t('province.tcode'),
-    search: {
-      hidden: true
-    }
-  },
-  {
-    field: 'importance',
-    label: t('province.area'),
+    field: 'status',
+    label: t('common.status'),
     search: {
       hidden: true
     },
-
+    table: {
+      slots: {
+        default: (data: any) => {
+          const status = data.row.status
+          return (
+            <>
+              <ElTag type={status === 0 ? 'danger' : 'success'}>
+                {status === 1 ? t('common.enable') : t('common.disable')}
+              </ElTag>
+            </>
+          )
+        }
+      }
+    },
+    form: {
+      component: 'Select',
+      componentProps: {
+        options: [
+          {
+            value: 0,
+            label: t('common.disable')
+          },
+          {
+            value: 1,
+            label: t('common.enable')
+          }
+        ]
+      }
+    },
     detail: {
       slots: {
         default: (data: any) => {
           return (
-            <ElTag
-              type={
-                data.importance === 1 ? 'success' : data.importance === 2 ? 'warning' : 'danger'
-              }
-            >
-              {data.importance === 1
-                ? t('common.important')
-                : data.importance === 2
-                ? t('common.good')
-                : t('common.commonly')}
-            </ElTag>
+            <>
+              <ElTag type={data.status === 0 ? 'danger' : 'success'}>
+                {data.status === 1 ? t('common.enable') : t('common.disable')}
+              </ElTag>
+            </>
           )
         }
       }
     }
   },
   {
-    field: 'pageviews',
-    label: t('province.lat'),
+    field: 'createTime',
+    label: t('common.displayTime'),
     search: {
       hidden: true
+    },
+    form: {
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetime',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
+      }
     }
   },
   {
-    field: 'content',
-    label: t('province.lon'),
+    field: 'remark',
+    label: t('common.remark'),
     search: {
       hidden: true
     },
-    table: {
-      show: false
+    form: {
+      component: 'Input',
+      componentProps: {
+        type: 'textarea',
+        rows: 5
+      },
+      colProps: {
+        span: 24
+      }
     },
     detail: {
-      span: 24,
       slots: {
         default: (data: any) => {
-          return <div innerHTML={data.content}></div>
+          return <>{data.remark}</>
         }
       }
     }
@@ -197,7 +238,7 @@ const { allSchemas } = useCrudSchemas(crudSchemas)
 const dialogVisible = ref(false)
 const dialogTitle = ref('')
 
-const currentRow = ref<TableData | null>(null)
+const currentRow = ref<DepartmentItem | null>(null)
 const actionType = ref('')
 
 const AddAction = () => {
@@ -209,16 +250,18 @@ const AddAction = () => {
 
 const delLoading = ref(false)
 
-const delData = async (row: TableData | null) => {
+const delData = async (row: DepartmentItem | null) => {
   const elTableExpose = await getElTableExpose()
-  ids.value = row ? [row.id] : elTableExpose?.getSelectionRows().map((v: TableData) => v.id) || []
+  ids.value = row
+    ? [row.id]
+    : elTableExpose?.getSelectionRows().map((v: DepartmentItem) => v.id) || []
   delLoading.value = true
   await delList(unref(ids).length).finally(() => {
     delLoading.value = false
   })
 }
 
-const action = (row: TableData, type: string) => {
+const action = (row: DepartmentItem, type: string) => {
   dialogTitle.value = t(type === 'edit' ? 'common.edit' : 'common.detail')
   actionType.value = type
   currentRow.value = row
@@ -234,7 +277,7 @@ const save = async () => {
   const formData = await write?.submit()
   if (formData) {
     saveLoading.value = true
-    const res = await saveTableApi(formData)
+    const res = await saveDepartmentApi(formData)
       .catch(() => {})
       .finally(() => {
         saveLoading.value = false

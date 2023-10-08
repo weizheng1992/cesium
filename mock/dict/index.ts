@@ -8,15 +8,15 @@ const dictObj: Recordable = {
   importance: [
     {
       value: 0,
-      label: 'tableDemo.commonly'
+      label: 'common.commonly'
     },
     {
       value: 1,
-      label: 'tableDemo.good'
+      label: 'common.good'
     },
     {
       value: 2,
-      label: 'tableDemo.important'
+      label: 'common.important'
     }
   ]
 }

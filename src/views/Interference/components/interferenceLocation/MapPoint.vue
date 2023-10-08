@@ -67,7 +67,7 @@ watch(
 
           cartesian2Point.value = [movement.position.x, movement.position.y]
           cartesian3Point.value = [lng, lat]
-          emit('onLocation', { lng, lat })
+          emit('onLocation', [lng, lat])
         }, ScreenSpaceEventType.RIGHT_CLICK)
         pickScreenSpaceEventHandler.setInputAction(() => {
           initMenu()
