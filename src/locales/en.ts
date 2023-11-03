@@ -60,7 +60,10 @@ export default {
     remark: 'Remark',
     action: 'Action',
     save: 'Save',
-    close: 'Close'
+    close: 'Close',
+    disable: 'Disable',
+    enable: 'Enable',
+    displayTime: 'Display time'
   },
   lock: {
     lockScreen: 'Lock screen',

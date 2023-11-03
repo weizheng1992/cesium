@@ -4,7 +4,7 @@ import { ElButton, ElButtonGroup, ElInput } from 'element-plus'
 // import PointDialog from '@/views/BasicData/Regional/components/PointDialog.vue'
 import { useI18n } from '@/hooks/web/useI18n'
 import MapPoint from './MapPoint.vue'
-import { number } from 'vue-types'
+import { isArray } from '@/utils/is'
 
 const { t } = useI18n()
 
@@ -28,7 +28,7 @@ const handleLocation = (val: Location[]) => {
 watch(
   () => props.modelValue,
   (val: Location[]) => {
-    if (location && val) {
+    if (location && val && isArray(val)) {
       if (val.join('') === location.join('')) return
       location[0] = val[0]
       location[1] = val[1]

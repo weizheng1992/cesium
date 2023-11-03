@@ -47,7 +47,7 @@ const schema = reactive<FormSchema[]>([
     formItemProps: {
       slots: {
         default: (formModel: any) => {
-          return <Location v-model={formModel['author']} />
+          return <Location v-model={[formModel['author']]} />
         }
       }
     }

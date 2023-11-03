@@ -727,14 +727,14 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       //     title: t('router.department')
       //   }
       // },
-      {
-        path: 'user',
-        component: () => import('@/views/sys/User/User.vue'),
-        name: 'User',
-        meta: {
-          title: t('router.user')
-        }
-      },
+      // {
+      //   path: 'user',
+      //   component: () => import('@/views/sys/User/User.vue'),
+      //   name: 'User',
+      //   meta: {
+      //     title: t('router.user')
+      //   }
+      // },
       {
         path: 'menu',
         component: () => import('@/views/sys/Menu/Menu.vue'),

@@ -109,26 +109,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     label: t('airport.area'),
     search: {
       hidden: true
-    },
-
-    detail: {
-      slots: {
-        default: (data: any) => {
-          return (
-            <ElTag
-              type={
-                data.importance === 1 ? 'success' : data.importance === 2 ? 'warning' : 'danger'
-              }
-            >
-              {data.importance === 1
-                ? t('common.important')
-                : data.importance === 2
-                ? t('common.good')
-                : t('common.commonly')}
-            </ElTag>
-          )
-        }
-      }
     }
   },
   {
@@ -146,14 +126,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     },
     table: {
       show: false
-    },
-    detail: {
-      span: 24,
-      slots: {
-        default: (data: any) => {
-          return <div innerHTML={data.content}></div>
-        }
-      }
     }
   },
   {

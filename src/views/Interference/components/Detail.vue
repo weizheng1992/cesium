@@ -7,7 +7,7 @@ import { ElTag } from 'element-plus'
 
 const { t } = useI18n()
 
-defineProps({
+const props = defineProps({
   currentRow: {
     type: Object as PropType<Nullable<TableData>>,
     default: () => null
@@ -72,6 +72,7 @@ const schema = reactive<DescriptionsSchema[]>([
     label: t('interference.degree')
   }
 ])
+console.log(props.currentRow)
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Write from './components/Write.vue'
+import Write from './Write.vue'
 import { ref, unref, watch } from 'vue'
 import { ElButton } from 'element-plus'
 import { useI18n } from '@/hooks/web/useI18n'

@@ -138,17 +138,6 @@ const crudSchemas = reactive<CrudSchema[]>([
     label: t('common.remark'),
     search: {
       hidden: true
-    },
-    table: {
-      show: false
-    },
-    detail: {
-      span: 24,
-      slots: {
-        default: (data: any) => {
-          return <div innerHTML={data.content}></div>
-        }
-      }
     }
   },
   {

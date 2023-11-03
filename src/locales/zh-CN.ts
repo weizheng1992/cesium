@@ -60,7 +60,10 @@ export default {
     remark: '备注',
     action: '操作',
     save: '保存',
-    close: '关闭'
+    close: '关闭',
+    disable: '禁用',
+    enable: '开启',
+    displayTime: '创建时间'
   },
   lock: {
     lockScreen: '锁定屏幕',

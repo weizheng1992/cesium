@@ -18,6 +18,7 @@
       <span>距离环</span>
     </el-menu-item>
   </ElMenu>
+  <AddDialog :visible="createVisible" />
 </template>
 <script setup lang="ts">
 import Cesium from '@/utils/cesiumUtils/cesium'
@@ -25,6 +26,7 @@ import { Viewer, Entity } from 'cesium'
 import { PropType, onMounted, ref } from 'vue'
 import { ElMenu, ElMenuItem } from 'element-plus'
 import CircleRipple from '@/utils/cesiumUtils/CircleRippleMaterial/common/CircleRipple'
+import AddDialog from '@/views/Interference/components/AddDialog.vue'
 
 defineOptions({
   name: 'RightMenu'
@@ -34,6 +36,7 @@ const props = defineProps({
 })
 
 const visible = ref(false)
+const createVisible = ref(false)
 const cartesian2Point = ref<number[]>([])
 const cartesian3Point = ref<number[]>([])
 const pointHtml = ref<Entity>()
@@ -105,6 +108,8 @@ const handleCircle = () => {
   }
 }
 
-const handleCreate = () => {}
+const handleCreate = () => {
+  createVisible.value = true
+}
 </script>
 <style lang=""></style>

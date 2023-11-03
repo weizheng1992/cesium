@@ -2,33 +2,19 @@
   <div class="panel-wrap" :class="{ hide: !dialogVisible }">
     <slot v-if="$slots.default"></slot>
     <div class="panel" v-else>
-      <el-tree-v2
-        :data="data"
+      <el-tree
         :height="400"
-        :props="treeProps"
         show-checkbox
-        :default-checked-keys="defaultCheckedKeys"
-        :default-expanded-keys="defaultExpandedKeys"
+        :load="loadNode"
+        lazy
+        :props="treeProps"
         style="
           --el-fill-color-blank: transparent;
           --el-tree-text-color: #fff;
           --el-tree-node-hover-bg-color: rgba(203, 225, 229, 0.3);
+          --el-tree-expand-icon-color: #fff;
         "
-        @node-expand="handleNodeExpand"
-        @node-collapse="handleNodeCollapse"
-      >
-        <template #default="{ node }">
-          <div class="flex justify-between flex-1">
-            <span>{{ node.label }}</span>
-            <span class="prefix" v-if="!node.isLeaf">
-              <Icon
-                :icon="
-                  nodeClose === node.key ? 'ic:sharp-arrow-circle-up' : 'ic:sharp-arrow-circle-down'
-                "
-            /></span>
-          </div>
-        </template>
-      </el-tree-v2>
+      />
     </div>
     <aside class="bar" @click="toggle">
       <span :class="{ 'slide-in': dialogVisible }">＜</span>
@@ -37,17 +23,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { ElTreeV2 } from 'element-plus'
-import { $t } from '@/utils/cesiumUtils/i18n'
+import { ref, watchEffect, reactive } from 'vue'
+import type Node from 'element-plus/es/components/tree/src/model/node'
+import { ElTree } from 'element-plus'
 
 const emits = defineEmits(['update:visible', 'btnClick'])
 
 const props = defineProps({
-  title: {
-    type: String,
-    default: $t('menus')
-  },
   width: {
     type: String,
     default: '30%'
@@ -59,62 +41,21 @@ const props = defineProps({
 })
 const dialogVisible = ref(false)
 
-const nodeClose = ref()
-
 interface Tree {
-  id: string
-  label: string
-  children?: Tree[]
-}
-
-const getKey = (prefix: string, id: number) => {
-  return `${prefix}-${id}`
-}
-
-const createData = (
-  maxDeep: number,
-  maxChildren: number,
-  minNodesNumber: number,
-  deep = 1,
-  key = 'node'
-): Tree[] => {
-  let id = 0
-  return Array.from({ length: minNodesNumber })
-    .fill(deep)
-    .map(() => {
-      const childrenNumber = deep === maxDeep ? 0 : Math.round(Math.random() * maxChildren)
-      const nodeKey = getKey(key, ++id)
-      return {
-        id: nodeKey,
-        label: nodeKey,
-        children: childrenNumber
-          ? createData(maxDeep, maxChildren, childrenNumber, deep + 1, nodeKey)
-          : undefined
-      }
-    })
+  name: string
+  leaf?: boolean
 }
 
 const treeProps = {
-  value: 'id',
-  label: 'label',
-  children: 'children'
+  label: 'name',
+  children: 'zones',
+  isLeaf: 'leaf'
 }
-const data = ref(createData(4, 30, 40))
-const checkedKeys: string[] = []
-const expanedKeys: string[] = []
-for (const datum of data.value) {
-  const children = datum.children
-  if (children) {
-    expanedKeys.push(datum.id)
-    checkedKeys.push(children[0].id)
-    break
-  }
-}
-
-const defaultCheckedKeys = ref(checkedKeys)
-const defaultExpandedKeys = ref(expanedKeys)
-
-console.log(defaultExpandedKeys, defaultCheckedKeys)
+const data = reactive<any>([
+  { id: 0, label: '机场', children: [], isLeaf: false },
+  { id: 11, label: '航线', children: [], isLeaf: false }
+])
+let count = 1
 
 watchEffect(() => {
   dialogVisible.value = props.visible
@@ -125,11 +66,42 @@ const toggle = () => {
   emits('update:visible', dialogVisible.value)
 }
 
-const handleNodeExpand = (_, node) => {
-  nodeClose.value = node.key
-}
-const handleNodeCollapse = () => {
-  nodeClose.value = null
+// const handleNodeExpand = (_, node) => {
+//   nodeClose.value = node.key
+//   defaultExpandedKeys.value.push(node.key)
+// }
+// const handleNodeCollapse = () => {
+//   nodeClose.value = null
+// }
+
+// const handleTreeIcon = (node) => {
+//   const index = data.findIndex((item) => item.id === node.key)
+//   if (index > -1) {
+//     data[index]?.children.push([{ id: 1, label: 'name', isLeaf: true }])
+//     console.log(data)
+//   }
+// }
+
+const loadNode = (node: Node, resolve: (data: Tree[]) => void) => {
+  if (node.level === 0) {
+    return resolve([{ name: '北京机场' }, { name: '航线' }])
+  }
+  if (node.level > 1) return resolve([])
+
+  setTimeout(() => {
+    const data: Tree[] = [
+      {
+        name: '北京机场',
+        leaf: true
+      },
+      {
+        name: '大兴航线',
+        leaf: true
+      }
+    ]
+
+    resolve(data)
+  }, 500)
 }
 </script>
 <style scoped lang="less">
@@ -137,11 +109,11 @@ const handleNodeCollapse = () => {
   font-size: 14px;
   position: fixed;
   right: 20px;
-  top: 50%;
+  top: 70%;
   transform: translateY(-50%);
   width: 300px;
   height: auto;
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(0, 68, 82, 0.28);
   transition: right 0.24s ease-in-out;
   border-radius: 5px;
   border: 1px solid rgba(0, 68, 82, 0.6);
@@ -253,10 +225,12 @@ const handleNodeCollapse = () => {
     }
   }
 }
+
 :deep(.el-tree-virtual-list) {
   margin: 20px;
 }
-:deep(.el-tree-node__content > .el-tree-node__expand-icon) {
-  display: none;
-}
+
+// :deep(.el-tree-node__content > .el-tree-node__expand-icon) {
+//   display: none;
+// }
 </style>
